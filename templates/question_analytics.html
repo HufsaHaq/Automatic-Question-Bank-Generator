@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}Question Analytics{% endblock %}
+
+{% block content %}
+    <div style="text-align: center;">
+        <h1>Question Analytics</h1>
+        <table style="margin: 0 auto;">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Usage Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question, usage_count in analytics_data %}
+                    <tr>
+                        <td><img src="data:image/jpeg;base64,{{ question }}" alt="Image" style="border: 1px dotted pink; max-width: 500px; display: block; margin: 0 auto;"></td>
+                        <td>{{ usage_count }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

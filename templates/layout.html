@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}WithiPro{% endblock %}</title>
+    <style>
+        .navbar {
+            background: linear-gradient(to right, #0000A0, #0000FF);
+            color: white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px; 
+        }
+
+        .logo img {
+            max-height: 40px; 
+        }
+
+        body {
+            background: #ffffff /* white background for the page */
+            margin: 0; 
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            display: inline;
+            margin-right: 10px; /* Adjust the margin between menu items */
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .logout-button {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        /* Custom style for bubble writing with outline */
+        .bubble-writing {
+            font-family: "Garamond", cursive;
+            font-size: 24px;
+            color: #000000;
+            -webkit-text-stroke: 1px #d3d3d3; 
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/static/logo.png" alt="Logo">
+        </div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/question_analytics">Question Analytics</a></li>
+            <li class="logout-button"><a href="/logout">Log Out</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

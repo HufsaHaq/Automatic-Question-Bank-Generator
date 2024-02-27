@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>userlogin</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        body {
+            background-color: #d8b6ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        #logo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 10px;
+        }
+
+        #logo img {
+            max-height: 50px; 
+        }
+
+        #page-wrapper {
+            margin-top: 60px; 
+        }
+
+        #page {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff; 
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="logo">
+        <a href="/home"><img src="/static/logo.png" alt="login"></a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div id="page-wrapper">
+        <div id="page" class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
+

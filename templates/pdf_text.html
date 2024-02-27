@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}PDF Text{% endblock %}
+
+{% block content %}
+    <h2 class="bubble-writing">Extracted Text from the First Ten Pages:</h2>
+    <ul>
+        {% for page_text in text_from_pages %}
+            <li>
+                <div style="border-bottom: 2px solid hotpink; padding: 10px;">
+                    <pre>{{ page_text }}</pre> <!-- need to use the <pre> tag to preserve formatting so regex pattern is correct-->
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

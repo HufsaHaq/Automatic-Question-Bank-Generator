@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="page-content">
+
+	<h4>{{message}}</h4>
+
+	<form action="{{ url_for('home') }}">
+		<table>
+		<tr>
+			<td>
+				<strong>Username</strong>
+			</td>
+			<td>
+				<strong>Password</strong>
+			</td>
+			<td style="padding-left: 10px;"> 
+				<strong>Is Teacher</strong>
+			</td>
+		</tr>
+		
+		{% for row in rows %}
+		<tr>
+			<td>
+				{{row[1]}}
+			</td>
+			<td>
+				{{row[2]}}
+			</td>
+			<td style="padding-left: 10px;"> 
+				{% if row[3] %}
+					Yes
+				{% else %}
+					No
+				{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+		</table>
+	</form>
+		
+</div>
+
+{% endblock %}

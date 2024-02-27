@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Upload PDF{% endblock %}
+
+{% block content %}
+    <h1 class="bubble-writing">Upload File</h1>
+    <form method="post" enctype="multipart/form-data" action="/upload_pdf">
+        <label for="pdf_file">Upload PDF Paper:</label>
+        <input type="file" name="pdf_file" required>
+
+        <button type="submit" name="button_pressed" value="Text" formtarget="_blank">Text</button>
+        <button type="submit" name="button_pressed" value="Experiment" formtarget="_blank">Experiment</button>
+
+        <h2 class="bubble-writing">Enter Regex Pattern</h2>
+        <input type="text" name="regex_pattern" placeholder="Enter Regex Pattern">
+        <button type="submit" name="button_pressed" value="Submit">Submit</button>
+    </form>
+    <div style="background-color: #FFDDDD; padding: 15px; border-radius: 10px;">
+        <h2 class="bubble-writing" style="color: #FF1493;">Regex Pattern Guide</h2>
+        <p style="color: #333333;">
+            Exact Matches: Normal letters and numbers in a regex match themselves. For example, if you write "hello," it will look for the exact word "hello" in the text.<br>
+            Wildcard Dot ( . ): The dot matches any single character. So, if you use "h.t," it will find "hat," "hot," etc.<br>
+            Asterisk ( * ): This says "zero or more." So, "go*gle" will find "ggle," "gogle," and "google."<br>
+            Square Brackets [ ]: They let you specify a range of characters. For instance, "[aeiou]" will match any vowel.<br>
+            Caret ^: Placed at the start of a set in square brackets, it negates the set. So, "[^0-9]" will match anything that is not a number.<br>
+            Pipe |: Acts like an OR. "cat|dog" will find either "cat" or "dog."<br>
+            Plus + and Question Mark ?: Plus means "one or more," and question mark means "zero or one." So, "go+l?" will match "gol" or "gool."<br>
+            Parentheses ( ): Group things together. "(ab)+" will find "ab," "abab," and so on.<br>
+            Escape Backslash \: Use it before special characters if you want to find them literally. For example, "." will find a period.<br>
+            Anchors ^ and $: They specify the start (^) or end ($) of a line. "^start" will find "start" only at the beginning of a line.<br>
+            An example of regex pattern for 09.1 is [0-9][0-9].[0-9].
+        </p>
+    </div>
+    <p>{{ message }}</p>
+
+    {% if type_existing %}
+        <script>
+            // Display pop-up overlay
+            var shouldContinue = confirm(`This {{ type_existing }} paper is already uploaded. Would you like to continue?`);
+            if (!shouldContinue) {
+                window.location.href = "/show_images";  
+            }
+        </script>
+    {% endif %}
+{% endblock %}

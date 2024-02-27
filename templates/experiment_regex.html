@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Enter Regex and Experiment{% endblock %}
+
+{% block content %}
+    <h1>Enter Regex Patterns and Experiment</h1>
+
+    <form method="post" action="/experiment_regex">
+        <input type="text" name="regex_pattern" placeholder="Enter Regex Pattern" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if example_images %}
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <p>Regex Pattern : {{ regex_pattern }}</p>
+
+            {% for image in example_images %}
+                <img src="data:image/jpeg;base64,{{ image }}" alt="Example Image" style="border: 1px dotted pink; margin: 10px 0; max-width: 500px;">
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; margin-top: 20px;">
+            <p>No images available for the current pattern. Displaying default image.</p> 
+        </div>
+    {% endif %}
+{% endblock %}

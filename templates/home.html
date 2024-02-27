@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>{{message}}</h3>
+       <form action="{{ url_for('admin_add_user') }}" method="get">
+           <button type="submit">Add user</button>
+       </form>
+       <form action="{{ url_for('admin_update_user') }}" method="get">
+           <button type="submit">Update user</button>
+       </form>
+       <form action="{{ url_for('admin_delete_user') }}" method="get">
+           <button type="submit">Delete user</button>
+       </form>
+       <form action="{{ url_for('admin_show_users') }}" method="get">
+           <button type="submit">Show users</button>
+       </form>
+
+{% endblock %}

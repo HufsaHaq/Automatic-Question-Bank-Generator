@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}Delete PDF{% endblock %}
+
+{% block content %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #e6e6fa;">
+        <form method="post" action="/delete_pdf" style="width: 300px; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <h1>Delete PDF</h1>
+
+            {% if message %}
+                <p style="color: {% if 'successfully' in message %}green{% else %}red{% endif %};">{{ message }}</p>
+            {% endif %}
+
+            <div style="margin-bottom: 10px;">
+                <label for="year">Year:</label>
+                <input type="text" name="year" required>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label for="subject">Subject:</label>
+                <input type="text" name="subject" required>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label for="level">Level:</label>
+                <input type="text" name="level" required>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label for="exam_code">Exam Code:</label>
+                <input type="text" name="exam_code" required>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label for="exam_board">Exam Board:</label>
+                <input type="text" name="exam_board" required>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label for="paper_number">Paper Number:</label>
+                <input type="text" name="paper_number" required>
+            </div>
+
+            <button type="submit">Delete PDF</button>
+        </form>
+    </div>
+{% endblock %}

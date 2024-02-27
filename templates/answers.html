@@ -1,0 +1,7 @@
+{% for a in a_images %}
+    {% if a %}
+            <ul><img src="data:image/jpeg;base64,{{ a}}" alt="Answer Image" margin: 10px 0; max-width: 500px; display: block; margin: 0 auto;"></ul>
+    {% else %}
+        <li>No answer image available for Question}}.</li>
+    {% endif %}
+{% endfor %}

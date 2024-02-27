@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+    <h1>Search for Exam Papers</h1>
+
+    <form method="POST" action="{{ url_for('search') }}">
+        <table>
+            <tr>
+                <td><label for="year">Year:</label></td>
+                <td><input type="text" name="year"></td>
+            </tr>
+            
+            <tr>
+                <td><label for="examboard">Exam Boards:</label></td>
+                <td>
+                    <input type="checkbox" name="examboard_AQA" value="AQA"> AQA
+                    <input type="checkbox" name="examboard_CCEA" value="CCEA"> CCEA
+                    <input type="checkbox" name="examboard_Edexcel" value="Pearson Edexcel"> Pearson Edexcel
+                    <input type="checkbox" name="examboard_OCR" value="OCR"> OCR
+                    <input type="checkbox" name="examboard_WJEC" value="WJEC"> WJEC
+                </td>
+            </tr>
+            
+            <tr>
+                <td><label for="level">Level:</label></td>
+                <td>
+                    <select name="level">
+                        <option value="*">*</option>
+                        <option value="GCSE">GCSE</option>
+                        <option value="A-level">A</option>
+                        <option value="AS">AS</option>
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <td><label for="subject">Subject:</label></td>
+                <td><input type="text" name="subject"></td>
+            </tr>
+            
+            <tr>
+                <td><label for="paper_number">Paper Number:</label></td>
+                <td><input type="text" name="paper_number"></td>
+            </tr>
+            
+            <tr>
+                <td><label for="keywords">Keyword:</label></td>
+                <td><input type="text" name="keywords"></td>
+            </tr>
+            
+            <tr>
+                <td><label for="additional_keywords">Additional Keyword:</label></td>
+                <td><input type="text" name="additional_keywords"></td>
+            </tr>
+            
+            <tr>
+                <td><label for="more_keywords">More Keyword:</label></td>
+                <td><input type="text" name="more_keywords"></td>
+            </tr>
+            
+            <tr>
+                <td colspan="2"><input type="submit" value="Search"></td>
+            </tr>
+        </table>
+    </form>
+    
+    <form method="POST" action="{{ url_for('compile') }}">
+        {% if results %}
+            <h2>Search Results:</h2>
+            {% if session['is_teacher'] %}
+                <p><strong>Teacher Note:</strong> If you wish to update the hidden status of a question, select that question, then change the Show/Hide value, and proceed to press the "Update Hidden Status" button.</p>
+            {% endif %}
+            <input type="submit" name="action" value="Questions" formtarget="_blank">
+            <input type="submit" name="action" value="Answers" formtarget="_blank">
+            {% if session['is_teacher'] %}
+                <input type="submit" name="action" value="Update Hidden Status">
+            {% endif %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Question Image</th>
+                        {% if session['is_teacher'] %}
+                            <th>Hide Question</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="checkbox{{ loop.index0 }}" value="on">
+                                <input type="hidden" name="selected_questions_{{ loop.index0 }}" value="{{ result[2] }}">
+                                <input type="hidden" name="question_number_{{ loop.index0 }}" value="{{ result[1] }}">
+                            </td>
+                            <td>
+                                <img src="data:image/jpeg;base64,{{ result[0] }}" alt="Image" style="border: 1px dotted red; max-width: 500px;">
+                            </td>
+                            {% if session['is_teacher'] %}
+                                <td>
+                                    <input type="radio" name="hidden{{ loop.index0 }}" value="1" {% if result[3] == 1 %}checked{% endif %}> Hide
+                                    <input type="radio" name="hidden{{ loop.index0 }}" value="0" {% if result[3] == 0 %}checked{% endif %}> Show
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </form>
+
+{% endblock %}
+

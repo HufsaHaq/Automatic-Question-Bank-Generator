@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+
+{% block title %}Teacher Home Page{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .header-container {
+            margin-top: 100px; 
+        }
+
+        .header-container h1 {
+            font-size: 36px; 
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            margin-top: 20px; 
+        }
+
+        .button-container {
+            padding: 1em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 1); 
+            background-color:  #0F52BA; 
+            border-radius: 5px;
+        }
+
+        .button-container form {
+            margin: 15px; 
+        }
+
+        .container {
+            text-align: left;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            background-color: #fff;
+            border-radius: 15px;
+            margin-top: 20px;
+            width: 70%; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr.QP:hover {
+            background-color: #aaf5aa;  /* Light green for QP */
+        }
+
+        tr.MS:hover {
+            background-color: #ffb6b6;  /* Light red for MS */
+        }
+    </style>
+
+    <div class="header-container">
+        <h1 class="bubble-writing">Welcome to the</h1>
+        <h1 class="bubble-writing">Teacher's Home Page</h1>
+    </div>
+
+    <div class="content-container">
+        <div class="button-container">
+            <form action="/search" method="get">
+                <button type="submit">Search</button>
+            </form>
+            <form action="/upload_pdf" method="get">
+                <button type="submit">Upload PDF</button>
+            </form>
+            <form action="/question_analytics" method="get">
+                <button type="submit">Question Analytics</button>
+            </form>
+            <form action="/delete_pdf" method="get">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+
+        <div class="container">
+            <h2>To-Do List:</h2>
+            <p class="color-code-explanation">
+                Items in the to-do list are color-coded for easy identification. Question Papers (QP) are highlighted in light green, 
+                and Mark Schemes (MS) are highlighted in light red. Hover over each row to see the color-coded distinction.
+            </p>
+            {% if question_papers or markschemes %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Subject</th>
+                            <th>Level</th>
+                            <th>Exam Board</th>
+                            <th>Exam Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if question_papers %}
+                            {% for item in question_papers %}
+                                <tr class="QP">
+                                    <td>{{ item[0] }}</td>
+                                    <td>{{ item[1] }}</td>
+                                    <td>{{ item[2] }}</td>
+                                    <td>{{ item[3] }}</td>
+                                    <td>{{ item[4] }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        {% if markschemes %}
+                            {% for item in markschemes %}
+                                <tr class="MS">
+                                    <td>{{ item[0] }}</td>
+                                    <td>{{ item[1] }}</td>
+                                    <td>{{ item[2] }}</td>
+                                    <td>{{ item[3] }}</td>
+                                    <td>{{ item[4] }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No items in the to-do list.</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}

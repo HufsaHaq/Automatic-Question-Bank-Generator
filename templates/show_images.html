@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h2>Review and Enter Question Numbers</h2>
+
+  <form method="post" action="{{ url_for('save_images') }}" enctype="multipart/form-data">
+    <h2>Instructions:</h2>
+    <p>If you do not want any of the images, please put the question number as 0. It will be removed later. If the image is a figure associated with a question then put the question number as the number followed by this symbol :# </p>
+
+    <h2>Choose Image Type</h2>
+    <label for="image_type">Select image type:</label>
+    <select name="image_type" id="image_type">
+      <option value="Questions">Questions</option>
+      <option value="Answers">Answers</option>
+    </select>
+
+    <table>
+        <tr>
+          <td><label for="metadata_year">Year:</label></td>
+          <td><input type="text" name="metadata_year" id="metadata_year" value="{{ metadata.year }}"></td>
+        </tr>
+        <tr>
+          <td><label for="metadata_subject">Subject:</label></td>
+          <td><input type="text" name="metadata_subject" id="metadata_subject" value="{{ metadata.subject }}"></td>
+        </tr>
+        <tr>
+          <td><label for="metadata_level">Level:</label></td>
+          <td><input type="text" name="metadata_level" id="metadata_level" value="{{ metadata.level }}"></td>
+        </tr>
+        <tr>
+          <td><label for="metadata_exam_code">Exam Code:</label></td>
+          <td><input type="text" name="metadata_exam_code" id="metadata_exam_code" value="{{ metadata.exam_code }}"></td>
+        </tr>
+        <tr>
+          <td><label for="metadata_exam_board">Exam Board:</label></td>
+          <td><input type="text" name="metadata_exam_board" id="metadata_exam_board" value="{{ metadata.exam_board }}"></td>
+        </tr>
+        <tr>
+          <td><label for="metadata_paper_number">Paper Number:</label></td>
+          <td><input type="text" name="metadata_paper_number" id="metadata_paper_number" value="{{ metadata.paper_number }}"></td>
+        </tr>
+    </table>
+
+    <div class="row">
+        {% for index in range(images|length) %}
+            <div style="text-align: center;">
+                <img src="data:image/jpeg;base64,{{ images[index] }}" alt="Image" style="border: 1px dotted pink; margin: 10px 0; max-width: 500px; display: block; margin: 0 auto;">
+                <div class="form-group" style="text-align: center; margin-top: 10px;">
+                    <label for="question_number_{{ index }}"></label>
+                    <input type="text" class="form-control" name="question_number" id="question_number_{{ index }}" placeholder="Enter Question Number" required style="width: 150px; margin-top: 5px;">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <input type="submit" name="button_pressed" value="Save" class="btn btn-primary">
+    {{ question_numbers }}
+  </form>
+{% endblock %}
